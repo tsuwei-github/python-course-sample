@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>上傳影像檔</title>
+</head>
+
+<body>
+    <h1>上傳影像檔</h1>
+
+    {% with msg = get_flashed_messages() %}
+    {% if msg %}
+    {% for m in msg %}
+    <p>{{ m }}</p> <!-- 顯示快閃訊息 -->
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% if filename %}
+    <div>
+        <img src="{{ url_for('display_image', filename=filename) }}">
+    </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+        <input type="file" name="filename" accept=".png, .jpg, .jpeg .gif" required>
+        <input type="submit" value="上傳">
+    </form>
+</body>
+
+</html>
